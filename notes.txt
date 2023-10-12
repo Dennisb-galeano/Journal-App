@@ -1,0 +1,67 @@
+MUI
+  con el MUI "material ui" INSTALACIONES
+  - es necesario configurar un componente que es el 
+  <ThemeProvider theme={ theme} /> que lo provee el mismo MUI , provee el TEMA
+  <CssBaseLine/> da un punto de entrada pra uqe todos los navegadores puedan renderizar de la misma manera los temas
+
+  - <box> </box>   hacen lo que un  div pero con mas atributos
+  - <grid> </grid> permite definir elementos internamente y por defecto ayuda a organizar mejor uqe un box
+  -  <Divider/>  funciona igual que el hr
+  - <Typography> </Typography>... del MUI se debe usar para textos por defecto es un  <p>
+    - variant='h5' es el tamaño de la letra
+- extencion loren ipsum: me ayuda a colocar texto de relleno.. Ctrl + Shift + P .. se escribe lorem y salen las extenciones
+
+buscar: noWrap component='div' ??
+
+
+
+clase 249 = menu lateral !! 
+clasr 250 = seleccionar o crear nueva 'nota'
+clase 252 = crear galeria de imagenes
+
+concepto, para react es un componente mas:
+pagina: cubre toda la pantalla desde elpunto de vista dl usuario
+  layout: cascaron y el estilo de la pagina 
+    view: la vista que va a cambiar dentro del contenido de la pagina
+
+
+
+REDUX:
+  se puede utilizar en react, angular, view, florer
+  mantiene el estado de la app, que es independiente al framework o libreria que se utilice 
+  Contenedor predecible del estado de una APP
+    - es una forma de controlar donde se encuentra la informacion de mi app en todo momento
+      ayuda a que la modificacion de la informacion sea siempre en usa sola vida de manera predecible, para prevenir cambios accidentales en la mismaS
+
+  STORE: "LA FUENTE UNIDA DE LA VERDAD"
+    - ahi esta la informacion que mis componentes van a consumir ,, como una tiendaa
+    - voy al STORE cuando necesito informacion.
+    
+
+  REDUCER:
+    - Es una fn pura que maneja un estado
+      - el estado le va a servir la informacion a la pagina o a la vista,para que muestre la info deseada pero esta no modifica el state, solo lo lee 
+        - cuando se necesia un cambio, la pag o vista va a generar una accion, uqe es agregar un TODO
+          LA ACCION se envia al reducer y este realiza la ACCION
+            - despues de ejecutar LA accion, el reducer genera un nuevo estado y
+              este se le notifica a la vista.
+
+  REDUX "reducer"
+    - siempre se va a tener un STATE, que va a ser provehido por el STORE
+      - La vista la ve del Store, solo muestra la informacion,, igual que en el reducer
+        - cuando de necesita 
+
+
+        Redux: es el patron que crea nuevos estados vasados en los reducers" nuevos estados"
+          esos reducers, estados son las nuevas acciones en los reducers
+
+        React Redux: era la forma tradicional de trababjar con redux, se usa mucho código, mas tedioso, pero tiene muchos componentes ya cereadoa para trabajar con react
+
+        Redux Toolkit: serie de herramientas Y COMPONENTES especializados para trabajar redux, de una manera mas sencilla. que van a yudar a implementar el patron de redux  
+          - RTK Query, fue implementado para trabajar con peticiones http y maneja el cache, este nos va a ayudar a crear es STORE "unica fuente de la verdad"
+            es parecido al SWR, que es otra forma de manejar peticiones http,, y otros...react quwery.
+
+            - puede mantener el cache por cierto tiempo las peticiones para evitar duplicidad
+            - hacer el tracking de cuando esta cargando .. 
+            - optimiza la parte del ui 
+            - maneja el cache
