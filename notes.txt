@@ -89,3 +89,12 @@ REDUX:
         el store va a ser el padre de los demas
         > importar el provider de react Redux y el store..
         > en el provider colocar el store ya que lo pide a fuerza <provider store={store}>
+
+
+        Firebase: es una base de datos noRelacional (colecciones), se utiliza para trabajar como backend, tiene hosting, servicio base de datos 
+          cloudFirestore. tiene costo para alto volumen de usuarios.
+          almacenamiento y autenticacion.
+          configuraar nuevo proyecto con la documentacion ... esa configuracion es para conectarse! no para administrar, se crea una carpeta de firebase y en el, file config.js va a ir la config. inicial
+          copiada de la doc de firebase. , en el file se agregan dos elementos para la autenticacion
+          > en la pag. firebase ir a autenticacion > marcar los proveedores que voy a usar en este caso, correo y contraseña y Google
+          

@@ -1,6 +1,7 @@
 
 //los thunks son acciones que yo puedo despachar, peero esas  acciones internamente tienen una tarea ASINCRONA
 
+import { signInWithGoogle } from "../../fireBase/providers";
 import { checkingCredentials } from "./authSlice";
 
 
@@ -16,7 +17,11 @@ const checkingAuthentication = (email, Password) => {  //esta es mi tarea asincr
 
 export const startGoogleSigIn = () => {
   return async (dispatch) => {
+
     dispatch( checkingCredentials() );
+
+    const result= await signInWithGoogle(); //esta fn la llamo desde los providers.js
+    console.log ({result});
   }
 
 }
