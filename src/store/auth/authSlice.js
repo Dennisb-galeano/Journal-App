@@ -15,29 +15,40 @@ export const authSlice = createSlice({
     errorMessage: null,
   },
 
-  reducers: { //se van a crear varios reducer
-    login: (state, action) => {
-
+  reducers: { //se van a crear varios reducer, este payload lo estoy usando en el dispatch en los thunks
+    login: (state, { payload }) => {
+      state.status = 'authenticated',
+      state.uid = payload.uid,
+      state.email = payload.email,
+      state.displayName = payload.displayName,
+      state.photoURL = payload.photoURL,
+      state.errorMessage = null;
+      console.log(state);
+      console.log(payload);
     },
 
-    logout: ( state, payload) => {
+    logout: (state, { payload }) => { //dejamos el estado, de como esta actualmente
 
+      state.status = 'not-authenticated';
+      state.uid = null;
+      state.email = null;
+      state.displayName = null;
+      state.photoURL = null;
+      state.errorMessage = payload.errorMessage;
     },
 
-    checkingCredentials: (state) =>{ //validara si se esta autenticado o no
-      state.status= 'checking'; 
-    },
-
-
-    //cada reducer dispara una accion
-
+    checkingCredentials: (state) => {//validara si se esta autenticado o no
+      state.status = 'checking';
+      console.log(state.status);
+    }
   },
 });
+//cada reducer dispara una accion
 
 
 // Action creators are generated for each case reducer function
-export const { login,logout,checkingCredentials } = authSlice.actions;
-
+export const { login, logout, checkingCredentials } = authSlice.actions;
+//export default authSlice.reducer
 
 
 /*

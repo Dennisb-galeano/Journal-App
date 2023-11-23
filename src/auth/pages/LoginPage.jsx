@@ -1,15 +1,19 @@
 
 //crea el diseño
-import { useDispatch } from 'react-redux';
+import { useMemo } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom'; //para que no hayan conflictos al haber dos link, se le va colocar un "alias"
 import { Google } from "@mui/icons-material";
 import { Grid, TextField, Typography, Button, Link } from "@mui/material";
 
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks/useForm';
-import { startGoogleSigIn } from '../../store/auth/thunks';
+import { startGoogleSignIn, checkingAuthentication } from '../../store/auth/thunks';
 
 export const LoginPage = () => {
+
+  const {status} = useSelector( state => state.auth ) //obtener lo uqe me interesa del store, voy a obtener el state y de ahi el auth, de ese objeto del auth quiero el {status}, cin el status puedo usar un unseMemo para para uqe me regrese un booleano. se crea la const isAuthenticating que va a guardar la infomraon del estado.. y esta const, se usa en los botones del login
 
   const dispatch = useDispatch();
 
@@ -19,17 +23,18 @@ export const LoginPage = () => {
     password: '123456',
   });
 
-
+  const isAuthenticating = useMemo( () => status === 'checking' , [status]   )  //voy a memorizar el resultado del status que obtengo desde useSelector, si el status es EXACTAMENTE IGUAL al 'checking', eso va a regresar un booleano. y la dependencia [vaa a ser el estatus] "si el estatus cambia, se va a obtener un nuevo valor, si no" no va a volver a cambiar
+ 
   const onSubmit = (event) => { //el on submit, trata de autenticar con usuario y contraseña / tareas asincronas, se crea file thunks
     event.preventDefault();
 
     console.log({ email, password });
-    dispatch(checkingAuthentication() );
+    dispatch( checkingAuthentication() );
   }
 
   const onGoogleSignIn = () => { //esta fn, debe disparar la auth de google / tareas asincronas, se crea file thunks
     console.log("onGoogleSignIn");
-    dispatch( startGoogleSigIn() );
+    dispatch( startGoogleSignIn() );
   }
 
 
@@ -64,13 +69,18 @@ export const LoginPage = () => {
 
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }} >
               <Grid item xs={12} sm={6}>
-                <Button type="submit" variant="contained" fullWidth>
+                <Button
+                disabled = { isAuthenticating} // isAuth.. va a estar deshabilitado si se encuentra eutenticando
+                 type="submit"
+                variant="contained" fullWidth
+                >
                   Login
                 </Button>
               </Grid>
 
               <Grid item xs={12} sm={6}>
                 <Button
+                 disabled = { isAuthenticating}
                   variant="contained"
                   fullWidth
                   onClick={onGoogleSignIn}

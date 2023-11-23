@@ -55,7 +55,7 @@ export const RegisterPage = () => {
             <Grid container direction='row' justifyContent='end'>
               <Typography sx={{mr:1 }}>ya tienes una cuenta?  </Typography>
               <Link component={RouterLink} to="/auth/login" color='inherit'>
-                Crear una Cuenta
+                Iniciar Sesion
               </Link>
 
 
