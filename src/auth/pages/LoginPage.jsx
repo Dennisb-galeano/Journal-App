@@ -4,10 +4,11 @@ import { useMemo } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom'; //para que no hayan conflictos al haber dos link, se le va colocar un "alias"
-import { Google } from "@mui/icons-material";
 import { Grid, TextField, Typography, Button, Link } from "@mui/material";
+import { Google } from "@mui/icons-material";
 
 import { AuthLayout } from '../layout/AuthLayout';
+
 import { useForm } from '../../hooks/useForm';
 import { startGoogleSignIn, checkingAuthentication } from '../../store/auth/thunks';
 
