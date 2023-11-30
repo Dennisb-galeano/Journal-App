@@ -1,7 +1,7 @@
 
 //los thunks son acciones que yo puedo despachar, peero esas  acciones internamente tienen una tarea ASINCRONA
 
-import { LoginWithEmailPassword, registerUserWithEmailPassword, signInWithGoogle } from "../../fireBase/providers";
+import { loginWithEmailPassword, registerUserWithEmailPassword, signInWithGoogle } from "../../fireBase/providers";
 import { checkingCredentials, login, logout } from "./authSlice";
 
 
@@ -38,11 +38,11 @@ export const startGoogleSignIn = () => {
 
       dispatch (checkingCredentials() );
 
-      const { ok, uid, photoURL,errorMessage } = await registerUserWithEmailPassword({ displayName, email, password});
-      if ( !ok ) return dispatch( logout( {errorMessage} ) );
+      const result = await registerUserWithEmailPassword({ displayName, email, password});
+      if ( !result.ok ) return dispatch( logout( result.errorMessage ) );
 // si todo ok, loguear al usuario
        
-      dispatch( login({ uid, displayName, email, photoURL }));
+      dispatch( login(result));
       
     }
   }
@@ -54,16 +54,14 @@ export const startGoogleSignIn = () => {
   export const startLoginWithEmailPassword = ( { email, password}) => {
     return async (dispatch) => {
 
-      dispatch( checkingCredentials( ));
+      dispatch( checkingCredentials());
 
-      const result = await LoginWithEmailPassword({ email, password});
+      const result = await loginWithEmailPassword({ email, password});
       console.log(result);
       
-      if (!result.ok) return dispatch( logout( result.errorMessage ) );
+      if (!result.ok) return dispatch( logout( result ) );
       dispatch( login( result ));
     }
-
-
 
   }
 

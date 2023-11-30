@@ -17,10 +17,10 @@ export const CheckingAuth = () => {
 
       {/* caja del medio */}
 
-      <Grid item
-      justifyContent='center'
+      <Grid 
+        justifyContent='center'
       >
-        <CircularProgress color='warning' />
+         <CircularProgress color='warning' /> {/*MUI imagen in progress  */}
         
       </Grid>
     </Grid>

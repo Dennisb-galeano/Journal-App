@@ -46,9 +46,9 @@ export const signInWithGoogle = async () => { //se crea fn que me sirva para aut
 export const registerUserWithEmailPassword = async ({ displayName, email, password }) => {
 
   try {
-    console.log({ email, password, displayName })
+    // console.log({ email, password, displayName })
 
-    const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password) //llamar el firebase, se ocupa con esta fn yse debe importar de firebase (el 1er objeto "FirebaseAuth" ya tiene toda config de la autenticacion modular de firebase )
+    const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password); //llamar el firebase, se ocupa con esta fn yse debe importar de firebase (el 1er objeto "FirebaseAuth" ya tiene toda config de la autenticacion modular de firebase )
     const { uid, photoURL } = resp.user;
 
     //actualizar el usuario en firebase: esta fn y evaluar en los thunks
@@ -68,18 +68,18 @@ export const registerUserWithEmailPassword = async ({ displayName, email, passwo
 }
 
 
-export const LoginWithEmailPassword = async ({email, password }) => {
-    try {
-      const resp = await signInWithEmailAndPassword( FirebaseAuth, email, password);
-      const {uid, photoURL, displayName} = resp.user;
+export const loginWithEmailPassword = async ({ email, password }) => {
+  try {
+    const resp = await signInWithEmailAndPassword(FirebaseAuth, email, password);
+    const { uid, photoURL, displayName } = resp.user;
 
-      return{
-        ok: true,
-        uid, photoURL, displayName
-      }
-      
-    } catch (error) {
-      return { ok:false, errorMessage: error.message}
-      
+    return {
+      ok: true,
+      uid, photoURL, displayName
     }
+
+  } catch (error) {
+    return { ok: false, errorMessage: error.message }
+
+  }
 }
