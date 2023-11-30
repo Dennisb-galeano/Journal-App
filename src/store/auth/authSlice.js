@@ -3,11 +3,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 
-
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    status: 'checking',  //    como quiero uqe lizca el store relacionado con el auth, son os estados uqe voy a definir
+    status: 'checking',  //como quiero uqe lizca el store relacionado con el auth, son os estados uqe voy a definir
     uid: null,
     email: null,
     displayName: null,
@@ -23,8 +22,8 @@ export const authSlice = createSlice({
       state.displayName = payload.displayName,
       state.photoURL = payload.photoURL,
       state.errorMessage = null;
-      console.log(state);
-      console.log(payload);
+      // console.log(state);
+      // console.log(payload);
     },
 
     logout: (state, { payload }) => { //dejamos el estado, de como esta actualmente

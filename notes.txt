@@ -98,3 +98,5 @@ REDUX:
           copiada de la doc de firebase. , en el file se agregan dos elementos para la autenticacion
           > en la pag. firebase ir a autenticacion > marcar los proveedores que voy a usar en este caso, correo y contraseña y Google
           
+
+  - Cualquier peticion que se haga a un servidor casi siempre es ASINCRONA

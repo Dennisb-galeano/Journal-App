@@ -10,7 +10,7 @@ import { Google } from "@mui/icons-material";
 import { AuthLayout } from '../layout/AuthLayout';
 
 import { useForm } from '../../hooks/useForm';
-import { startGoogleSignIn, checkingAuthentication } from '../../store/auth/thunks';
+import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth/thunks';
 
 export const LoginPage = () => {
 
@@ -30,7 +30,9 @@ export const LoginPage = () => {
     event.preventDefault();
 
     console.log({ email, password });
-    dispatch( checkingAuthentication() );
+    dispatch( startLoginWithEmailPassword ({ email, password})); //accion que se va a llamar laa loguerse, va a esperar el emil y la cont
+
+
   }
 
   const onGoogleSignIn = () => { //esta fn, debe disparar la auth de google / tareas asincronas, se crea file thunks

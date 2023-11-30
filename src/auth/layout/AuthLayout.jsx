@@ -4,7 +4,7 @@
 
 import { Grid, Typography } from "@mui/material"
 
-export const AuthLayout = ({children, title=""}) => {
+export const AuthLayout = ({ children, title = "" }) => {
   return (
 
     <Grid
@@ -20,12 +20,13 @@ export const AuthLayout = ({children, title=""}) => {
 
       <Grid item
         className="box-shadow"
-        xs={ 3 }   //xs tamaño de la caja
-        sx={{ 
-          width: {md: 450}, //este aplica solo para ajustar pantallas medianas
-          backgroundColor: 'white', 
+        xs={3}   //xs tamaño de la caja
+        sx={{
+          width: { md: 450 }, //este aplica solo para ajustar pantallas medianas
+          backgroundColor: 'white',
           padding: 3,
-          borderRadius: 2 }} // sx extraestilo
+          borderRadius: 2  // sx extraestilo
+        }}
 
       >
         <Typography variant="h5" sx={{ mb: 1 }}> {title} </Typography>

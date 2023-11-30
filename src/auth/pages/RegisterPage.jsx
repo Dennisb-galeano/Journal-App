@@ -1,19 +1,21 @@
 
 
 //crea el diseño
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom'; //para que no hayan conflictos al haber dos link, se le va colocar un "alias"
-import { Grid, TextField, Typography, Button, Link } from "@mui/material";
+import { Grid, TextField, Typography, Button, Link, Alert } from "@mui/material";
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks/useForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { startCreatingUserWithEmailPassword } from '../../store/auth/thunks';
 
 
 
 // el objeto del form lo puedo hacer afuera y llamarlo como primer arg, es igual que enviar el objeto
 const formData = {
-  displayName: 'Encito ',
-  email: 'encitoPrecioso@gmail.com',
-  password: '123456',
+  displayName: '',
+  email: '',
+  password: '',
 }
 
 //voy a mandar mis validaciones al use form, para determinar si el email esta ok o mal
@@ -29,19 +31,27 @@ const formValidations = {
 
 export const RegisterPage = () => {
 
-  const [formSubmitted, setFormSubmitted] = useState(false); //este state lo voy a llamar cuando se postee el formulario, me mantiene el estado para cuando envie el formulario si no hay nada en el, asi no me aparece el error en loscampos
+  const dispatch = useDispatch( );
+  const [formSubmitted, setFormSubmitted] = useState(false); //este state lo voy a llamar cuando se postee el formulario, me mantiene el estado para cuando envie el formulario si no hay nada en el,  me aparece el error en loscampos paraa que la persona complete elcampo
+
+  const {status, errorMessage } = useSelector( state => state.auth ); //usa el error message. voy a desesrtuct. voy a ocupar algo que viene del useSelector (tomo el state => del state me interesa buscar el state.auth) de ahi {desestructuro el stats y .. }
+  const isCheckingAuthentication = useMemo( () => status === 'checking', [status] );  // blouquea el boton de registro mientras se determina el estado de autenticacion, este hook va a memorizar el valor uqe viene del estatus si es igual a checjong [dependencia]
 
   //el useForm me pide como primer argumento { como se va a ver mi formulario, "formData"}
   //este hook me va a encargar de todas las validaciones, si es valido el formulario cuando pase todas las validaciones "correo valido, consraseña,nombre..." o no 
   const { formState, displayName, email, password, onInputChange,
           isFormValid, displayNameValid, emailValid, passwordValid,
-   } = useForm(formData, formValidations );
+   } = useForm( formData, formValidations );
 
     // console.log(displayNameValid);
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(formState);
+    setFormSubmitted(true);
+
+    if ( !isFormValid ) return; //si no es valido..return.. me devuele en rojo
+
+    dispatch (startCreatingUserWithEmailPassword( formState) );
   }
 
 
@@ -51,6 +61,7 @@ export const RegisterPage = () => {
 
       <form onSubmit={ onSubmit}>
         <Grid container>
+          
           <Grid item xs={12} sx={{ mt: 2 }}>
             <TextField //me permite escribir
               label="Nombre completo"
@@ -60,7 +71,7 @@ export const RegisterPage = () => {
               name= "displayName"
               value={displayName}
               onChange={onInputChange} //esra fn se creo con el use form
-              error= {!!displayNameValid && formSubmitted} //propiedad MUI error,pone rohoel texto, se va a mostrar si NO es valido  LA DOBLE NEGACION LO CONVIERTE EN UN BOOLEANO
+              error= {!!displayNameValid && formSubmitted} //propiedad MUI error,pone rojo el texto, se va a mostrar si NO es valido  LA DOBLE NEGACION LO CONVIERTE EN UN BOOLEANO
               helperText={displayNameValid} // propiedad me coloca mensaje
 
             />
@@ -97,15 +108,24 @@ export const RegisterPage = () => {
             </Grid>
 
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }} >
+              <Grid
+                item
+                xs={12} 
+               display={ !!errorMessage ? '': 'none'}  
+              >
+
+               <Alert severity='error'>  {errorMessage} </Alert>    {/*MUI */}
+              </Grid>
+
               <Grid item xs={12}>
                 <Button 
+                disabled = { isCheckingAuthentication } //disabled si esta revisando la autenticacion
                 type='submit' //el boton debe tener este type para que al dar clock dispare el formulario
                 variant="contained"
                 fullWidth>
                   Crear Cuenta
                 </Button>
               </Grid>
-
 
 
             </Grid>
