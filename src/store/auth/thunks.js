@@ -1,7 +1,7 @@
 
 //los thunks son acciones que yo puedo despachar, peero esas  acciones internamente tienen una tarea ASINCRONA
 
-import { loginWithEmailPassword, registerUserWithEmailPassword, signInWithGoogle } from "../../fireBase/providers";
+import { loginWithEmailPassword, logoutFirebase, registerUserWithEmailPassword, signInWithGoogle } from "../../fireBase/providers";
 import { checkingCredentials, login, logout } from "./authSlice";
 
 
@@ -64,6 +64,20 @@ export const startGoogleSignIn = () => {
     }
 
   }
+
+  //esta fn se va a usar en el navbar , para disparar la accion del lofout
+  
+  export const startLogout = () => {
+    return  async( dispatch ) =>{
+  
+      await logoutFirebase(); 
+      //se va a llamar el logouyt del authSlice
+      dispatch( logout());
+
+
+    }
+  }
+  
 
 
   

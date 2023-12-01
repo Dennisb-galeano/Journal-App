@@ -83,3 +83,10 @@ export const loginWithEmailPassword = async ({ email, password }) => {
 
   }
 }
+
+
+//se va a llamar la fn de signOut, esta fn, 'metodo de autenticacion' cierra google, face, instaa... todo
+export const logoutFirebase = async () => {
+  return await FirebaseAuth.signOut(); 
+
+}

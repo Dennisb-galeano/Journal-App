@@ -1,8 +1,19 @@
-import { LogoutOutlined, MenuOutlined } from "@mui/icons-material"
-import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material"
+import { useDispatch } from "react-redux";
+import { LogoutOutlined, MenuOutlined } from "@mui/icons-material";
+import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
+import { startLogout } from "../../store/auth/thunks";
 
 
 export const NavBar = ({ drawerWidth = 240 }) => {
+
+
+  const dispatch = useDispatch();
+
+
+  const onLogout = () => {
+    dispatch (startLogout() ); //el dispatch de una accion, del auth creada en los thunks, startLogout
+  }
+
   return (
 
     <AppBar
@@ -25,7 +36,10 @@ export const NavBar = ({ drawerWidth = 240 }) => {
         <Grid container direction='row' justifyContent='space-between' alignItems='center'>   {/*esta linea separa los hijos  */}
           <Typography variant='h6' noWrap component='div'> JournalApp</Typography>
 
-          <IconButton color="error">
+          <IconButton 
+          color="error"
+          onClick={ onLogout }
+          >
             <LogoutOutlined />   {/*boton logout - *flecha a la derecha* */}
           </IconButton>
         </Grid>

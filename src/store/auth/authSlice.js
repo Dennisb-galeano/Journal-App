@@ -33,7 +33,7 @@ export const authSlice = createSlice({
       state.email = null;
       state.displayName = null;
       state.photoURL = null;
-      state.errorMessage = payload.errorMessage;
+      state.errorMessage = payload?.errorMessage; //si viene el payloar, busca el errorMessage, de lo contrario no haace nada 
     },
 
     checkingCredentials: (state) => {//validara si se esta autenticado o no
