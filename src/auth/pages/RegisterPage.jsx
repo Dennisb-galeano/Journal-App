@@ -1,6 +1,6 @@
 
-
 //crea el diseño
+
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom'; //para que no hayan conflictos al haber dos link, se le va colocar un "alias"
@@ -59,7 +59,10 @@ export const RegisterPage = () => {
     <AuthLayout title="Crear Cuenta">
       {/* <h1>FormValid: {isFormValid ? 'formato ok' : 'Incorrecto'}   </h1> */}
 
-      <form onSubmit={onSubmit}>
+      <form
+        onSubmit={onSubmit}      
+        className="animate__animated animate_fadeIn animate_faster"
+>
         <Grid container>
 
           <Grid item xs={12} sx={{ mt: 2 }}>

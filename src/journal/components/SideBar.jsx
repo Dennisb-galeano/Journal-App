@@ -1,9 +1,9 @@
 
 // barra lateral
+import { useSelector } from "react-redux";
 
 import { TurnedInNot } from "@mui/icons-material";
 import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
 
 
 export const SideBar = ({drawerWidth}) => {

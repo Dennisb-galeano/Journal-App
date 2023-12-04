@@ -1,4 +1,4 @@
-
+//CONFIGURACION DEL FIREBASE PARA QUE ME DEJE VER LA API
 
 // Import the functions you need from the SDKs you need
 

@@ -1,12 +1,20 @@
 import { SaveOutlined } from "@mui/icons-material"
 import { Button, Grid, TextField, Typography } from "@mui/material"
+
 import { ImageGalery } from "../components/ImageGalery"
 
 
 export const NoteView = () => {
   return (
 
-    <Grid container direction='row' justifyContent='space-between' sx={{ mb: 1 }}>
+    <Grid
+      container
+      direction='row'
+      justifyContent='space-between'
+      sx={{ mb: 1 }}
+      className="animate__animated animate_fadeIn animate_slower"
+
+    >
       <Grid item>
         <Typography fontSize={39} fontWeight='light'> 15 de octubre, 2023</Typography>
       </Grid>
@@ -40,7 +48,7 @@ export const NoteView = () => {
 
       </Grid>
       {/* galeria de imagenes */}
-        <ImageGalery/>
+      <ImageGalery />
 
 
 

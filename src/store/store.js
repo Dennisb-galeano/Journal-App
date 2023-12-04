@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {authSlice} from '../store/auth/authSlice';
+import { journalSlice } from "./journal/journalSlice";
 
 
 export const store = configureStore( {
   reducer: {
     auth: authSlice.reducer,
-
-  },
+    journal: journalSlice.reducer,  //apunta al reducer del journalSlice
+  }, 
 
 });
 

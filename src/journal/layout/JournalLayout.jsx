@@ -9,7 +9,11 @@ const drawerWidth = 280;  //barra Lateral, del mismo tamaño siempre
 export const JournalLayout = ({ children }) => {
   return (
 
-    <Box sx={{ display: 'flex' }}>  {/* box es como un div */}
+    <Box 
+    sx={{ display: 'flex' }}
+    className="animate__animated animate_fadeIn animate_faster"
+
+    >  {/* box es como un div */}
 
       {/* Navbar - drawerWith"es el ANCHO que se le va a dar al sidebar"*/}
       <NavBar drawerWidth={drawerWidth} />
