@@ -3,18 +3,18 @@
 
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../fireBase/config";
-import { addNewEmptyNote, savingNewNote, setActiveNote } from "./journalSlice";
+import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes } from "./journalSlice";
+import { loadNotes } from "../../helpers/loadNotes";
 
 // esta accion se va a despachar cuando alguin haga click en el boton del + , este dispatch se usa en journal page, (donde esta el boton)
 export const startNewNote = () => { 
  return  async( dispatch, getState ) =>{ // para obtener el id del usuaior usamos el getState que esun fn de redux
   // console.log( getState());
-
   dispatch (savingNewNote() ); //reducer de journal slice
+
 
   const {uid } = getState().auth;  //para grabar en firebase, vamos a opupar el uid del usuario
   
-
   const newNote= {
     title:'',
     body: '',
@@ -30,10 +30,22 @@ newNote.id = newDoc.id;
    dispatch (addNewEmptyNote( newNote) ); // esta la accion y requiere el payload uqe es el newNote
    dispatch (setActiveNote(newNote) );  //activa la nota, viene del authSlice
 
-
-
  }
   
+}
+
+export const startLoadingNotes = () => {  //lo voy a llamar en useCheckAuth
+  return async (dispatch, getState) => {
+    const {uid } = getState().auth;  //para grabar en firebase, vamos a opupar el uid del usuario
+    if( !uid ) throw new Error('el UID del usuario no existe');
+
+    const notes =await loadNotes(uid);
+    dispatch (setNotes( notes ) ); //se manda el pyload)
+
+  }
+
+
+
 }
 
 

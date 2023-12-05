@@ -33,10 +33,11 @@ export const journalSlice = createSlice({
             state.isSaving = false;  
         },
         setActiveNote:( state, action) => {  // hacer click y establecer nota activa
-            state.active = action.payload
+            state.active = action.payload;
         },
 
         setNotes:( state,action )  => {  //cargar las notas, 
+            state.notes = action.payload;
     },
         setSaving:( state) => {//cuando estoy guradando las notas
     },

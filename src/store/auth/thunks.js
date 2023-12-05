@@ -77,7 +77,4 @@ export const startGoogleSignIn = () => {
 
     }
   }
-  
 
-
-  

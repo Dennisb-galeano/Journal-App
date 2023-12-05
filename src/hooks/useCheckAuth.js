@@ -10,6 +10,7 @@ import { FirebaseAuth } from "../fireBase/config";
 import { onAuthStateChanged } from "firebase/auth";
 
 import { login, logout } from "../store/auth/authSlice";
+import { startLoadingNotes } from "../store/journal/thunks";
 
 
 
@@ -24,8 +25,9 @@ export const useCheckAuth = () => {
       // console.log(user);
       if (!user) return dispatch(logout());  //si, no hay ningun usuario entonces se llama el logout( ese esta en el authSlice)
 
-      const { uid, email, displayName, photoURL } = user;
+      const { uid, email, displayName, photoURL } = user; //el primero en darse cuenta si hay un usuario
       dispatch(login({ uid, email, displayName, photoURL }));  //pero, si estoy autenticado, si tengo un usario, voy a mamdar el diapatc del login
+      dispatch(startLoadingNotes() ); //thunks
     })
 
   }, []);
