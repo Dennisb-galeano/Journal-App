@@ -24,7 +24,7 @@ export const FirebaseApp = initializeApp(firebaseConfig); // parte de autenticac
 
 export const FirebaseAuth =  getAuth( FirebaseApp); //funcionalidades de autenticacion
 
-export const firebaseDB = getFirestore (FirebaseApp ) //configuracion de mi base de datos
+export const FirebaseDB = getFirestore (FirebaseApp ) //configuracion de mi base de datos
 
 
 

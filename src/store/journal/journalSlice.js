@@ -9,7 +9,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const journalSlice = createSlice({
     name: 'journal',
     initialState: {
-      isSaving: true,  //bandera booleana para evitar doble posteo, que me va a decir si estoy guardando o no
+      isSaving: false,  //bandera booleana para evitar doble posteo, que me va a decir si estoy guardando o no
       messageSaved: '',
       notes: [], //mis notas van a estar almacenadas en un objeto que va a ser el arreglo  
       active: null, 
@@ -24,11 +24,17 @@ export const journalSlice = createSlice({
     },
 
     reducers: {
+        savingNewNote: (state) => { //deshabilita el boton si esta cargando. se usa con un use selector en el journal page, el dispatch esta en los thunks
+            state.isSaving = true;
+        },
+
         addNewEmptyNote: (state, action) => {  // esta accion,  cuando tooque el boton + me va a crear una nueva entrada y crea espacio en firebase para empezar a actualizar
-       
-    },
+            state.notes.push( action.payload); //redux toolkit muta y crea nunevo estado
+            state.isSaving = false;  
+        },
         setActiveNote:( state, action) => {  // hacer click y establecer nota activa
-    },
+            state.active = action.payload
+        },
 
         setNotes:( state,action )  => {  //cargar las notas, 
     },
@@ -46,12 +52,12 @@ export const journalSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { 
     addNewEmptyNote,
+    delelteNoteById,
+    savingNewNote,
     setActiveNote,
     setNotes,
     setSaving,
     updateNote,
-    delelteNoteById,
-
 } = journalSlice.actions;
 
 

@@ -100,3 +100,8 @@ REDUX:
           
 
   - Cualquier peticion que se haga a un servidor casi siempre es ASINCRONA
+
+  - cloudFirestore, es una base de datos no relacional noSql todose trabaja en base a colecicones, y dentro los documentos, la coleccion seria un listado de documentos.
+- firebase: 
+/* en la parte de reglas de firestore de la pag, ajustar para que me deje  pasar las peticiones  si ya estoy autenticado..  allow read, write: if request.auth !==null;
+con la configuracion de las reglas se puedes da o quetar permisos al usuario para que puedan o no grabar la informacion
