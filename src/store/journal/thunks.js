@@ -44,8 +44,6 @@ export const startLoadingNotes = () => {  //lo voy a llamar en useCheckAuth
 
   }
 
-
-
 }
 
 

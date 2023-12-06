@@ -74,7 +74,6 @@ export const startGoogleSignIn = () => {
       //se va a llamar el logouyt del authSlice
       dispatch( logout());
 
-
     }
   }
 

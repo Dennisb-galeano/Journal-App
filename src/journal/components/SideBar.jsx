@@ -1,15 +1,16 @@
 
-// barra lateral
+// barra lateral 
 import { useSelector } from "react-redux";
 
-import { TurnedInNot } from "@mui/icons-material";
-import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
+import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material";
+import { SideBarItem } from "./SideBarItem";
 
 
 export const SideBar = ({drawerWidth}) => {
 
 
-const {displayName} = useSelector( state => state.auth );
+const {displayName} = useSelector( state => state.auth ); //useSelector obtiene informacion del store
+const { notes} = useSelector (state => state.journal );
 
   return (
 
@@ -38,22 +39,8 @@ const {displayName} = useSelector( state => state.auth );
 
           <List>   {/* crea una lista y se puede hacer scroll*/}
         {
-           ['Enero', 'Febrero', 'Marzo', 'Abril'].map(text => (
-               <ListItem key={text} disablePadding>
-
-                <ListItemButton>  {/* permite hacer click en el boton */}
-                   <ListItemIcon>  {/* permite la entrada de los iconos */}
-                     <TurnedInNot /> {/* iconos */}
-
-                   </ListItemIcon>
-                   <Grid container>
-                     <ListItemText primary={text} />   {/* primary, secondary son tipos de texto, el texto lo recibe del.map */}
-                     <ListItemText secondary={'Ex minim esse nisi anim eu ex laborum consequat tempor adipisicing cillum do ut consequat.'} />    {/*  ctrl +shift + p  lorem*/}
-                   </Grid>
-
-                 </ListItemButton>
-
-               </ListItem>
+           notes.map(note => (
+            <SideBarItem key={note.id } {...note}/>
 
              ))
 

@@ -12,6 +12,11 @@ import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks/useForm';
 import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth/thunks';
 
+const formData = {
+  email: 'encitoPrecioso@gmail.com',
+  password: '123456',
+}
+
 export const LoginPage = () => {
 
   const {status} = useSelector( state => state.auth ) //obtener lo uqe me interesa del store, voy a obtener el state y de ahi el auth, de ese objeto del auth quiero el {status}, cin el status puedo usar un unseMemo para para uqe me regrese un booleano. se crea la const isAuthenticating que va a guardar la infomraon del estado.. y esta const, se usa en los botones del login
@@ -19,10 +24,7 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
 
   //el useForm me pide como primer argumento { como se va a ver mi formulario }
-  const { email, password, onInputChange } = useForm({
-    email: 'encitoPrecioso@gmail.com',
-    password: '123456',
-  });
+  const { email, password, onInputChange } = useForm(formData);
 
   const isAuthenticating = useMemo( () => status === 'checking' , [status]   )  //voy a memorizar el resultado del status que obtengo desde useSelector, si el status es EXACTAMENTE IGUAL al 'checking', eso va a regresar un booleano. y la dependencia [vaa a ser el estatus] "si el estatus cambia, se va a obtener un nuevo valor, si no" no va a volver a cambiar
  
