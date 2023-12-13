@@ -34,6 +34,7 @@ export const journalSlice = createSlice({
         },
         setActiveNote:( state, action) => {  // hacer click y establecer nota activa
             state.active = action.payload;
+            state.messageSaved ='';
         },
 
         setNotes:( state,action )  => {  //cargar las notas, 
@@ -41,6 +42,7 @@ export const journalSlice = createSlice({
     },
         setSaving:( state) => {//cuando estoy guradando las notas
             state.isSaving = true;
+            state.messageSaved = '';
         },
         updateNote:( state, action) =>{ // payload.. noteactualizar una nota la referencia local,
             state.isSaving = false; //por que ya guardo
@@ -51,6 +53,8 @@ export const journalSlice = createSlice({
                 }
                 return note;
             }); 
+
+            state.messageSaved = `${action.payload.title}, actualizada correctamente`;
 
         },  
         delelteNoteById: (state, action) => { //borrar nota

@@ -1,7 +1,10 @@
 import { useEffect, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
+
 import { SaveOutlined } from "@mui/icons-material"
 import { Button, Grid, TextField, Typography } from "@mui/material"
+import Swal from "sweetalert2"
+import 'sweetalert2/dist/sweetalert2.css'
 
 import { ImageGalery } from "../components/ImageGalery"
 import { useForm } from "../../hooks/useForm"
@@ -15,7 +18,7 @@ export const NoteView = () => {
 
   const dispatch = useDispatch();
   //tomar la nota activa del estado de mi Store. este me muestra el estado inicial de mi nota
-  const { active: note } = useSelector(state => state.journal); //se cambia el nombre a a note, de las notas activas
+  const { active: note,messageSaved, isSaving } = useSelector(state => state.journal); //se cambia el nombre a a note, de las notas activas
 
   const { body, title, date, onInputChange, formState } = useForm(note); //la nota se va a mandar al useForm, estos campos los voy a usar dentro de los campos como el value.. de cada espaacio
 
@@ -30,6 +33,15 @@ export const NoteView = () => {
     dispatch( setActiveNote( formState) ); //fn del journalSlice. el set va a activar la nota (el formState, tiene todas las propiedades de la nota , y actualizadas)
   }, [formState]) //cuando el fomState cambie,se va a despachar una nueva accion
   
+useEffect(() => {
+  if( messageSaved.length > 0){
+    Swal.fire('Nota actualizada', messageSaved, 'success');
+  }
+
+  
+}, [messageSaved]) //cuando el mesageSaerf cambie se va a disparr 
+
+
 
   const onSaveNote =() => {
     dispatch( startSaveNote());
@@ -53,6 +65,7 @@ export const NoteView = () => {
 
       <Grid item> 
         <Button   /*cuando toque este boton, se va a disparar una accion que va a empezar el proceso de grabacion */
+        disable={isSaving } // se deshabilita el boton mientras esta guardando
         onClick={ onSaveNote }
         color="primary" 
         sx={{ padding: 2 }} 
