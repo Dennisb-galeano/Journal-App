@@ -40,9 +40,19 @@ export const journalSlice = createSlice({
             state.notes = action.payload;
     },
         setSaving:( state) => {//cuando estoy guradando las notas
-    },
-        updateNote:( state, action) =>{ //actualizar una nota
-    }, 
+            state.isSaving = true;
+        },
+        updateNote:( state, action) =>{ // payload.. noteactualizar una nota la referencia local,
+            state.isSaving = false; //por que ya guardo
+            state.notes = state.notes.map(note => {  // se hace asi por redux toolkit
+
+                if(note.id === action.payload.id){
+                    return action.payload;
+                }
+                return note;
+            }); 
+
+        },  
         delelteNoteById: (state, action) => { //borrar nota
     },
 

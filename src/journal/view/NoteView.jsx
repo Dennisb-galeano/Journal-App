@@ -1,26 +1,40 @@
+import { useEffect, useMemo } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { SaveOutlined } from "@mui/icons-material"
 import { Button, Grid, TextField, Typography } from "@mui/material"
 
 import { ImageGalery } from "../components/ImageGalery"
 import { useForm } from "../../hooks/useForm"
-import { useSelector } from "react-redux"
-import { useMemo } from "react"
+import { setActiveNote } from "../../store/journal/journalSlice"
+import { startSaveNote } from "../../store/journal/thunks"
 
 
 //este componente tiene la infomacion del formulario, se usa la nota activa para mostrarla en el journal
 
 export const NoteView = () => {
 
+  const dispatch = useDispatch();
   //tomar la nota activa del estado de mi Store. este me muestra el estado inicial de mi nota
   const { active: note } = useSelector(state => state.journal); //se cambia el nombre a a note, de las notas activas
 
   const { body, title, date, onInputChange, formState } = useForm(note); //la nota se va a mandar al useForm, estos campos los voy a usar dentro de los campos como el value.. de cada espaacio
 
   const dateString = useMemo( () => {   //esta fn
+
     const newdate = new Date( date ); //el date esta en la nota
     return newdate.toUTCString();  //el metodo toUTC convierte una fecha en una cadena, utilizando la zona horaria UTC
-
   }, [date])  //dependencia, 
+
+
+  useEffect(() => {
+    dispatch( setActiveNote( formState) ); //fn del journalSlice. el set va a activar la nota (el formState, tiene todas las propiedades de la nota , y actualizadas)
+  }, [formState]) //cuando el fomState cambie,se va a despachar una nueva accion
+  
+
+  const onSaveNote =() => {
+    dispatch( startSaveNote());
+  }
+
 
 
   return (
@@ -37,8 +51,13 @@ export const NoteView = () => {
          <Typography fontSize={39} fontWeight='light'> { dateString}</Typography>  {/*muestra la fecha en la que esta creada la nota */}
       </Grid>
 
-      <Grid item>
-        <Button color="primary" sx={{ padding: 2 }} >
+      <Grid item> 
+        <Button   /*cuando toque este boton, se va a disparar una accion que va a empezar el proceso de grabacion */
+        onClick={ onSaveNote }
+        color="primary" 
+        sx={{ padding: 2 }} 
+        >
+
           <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />  {/*este es el Icomo de guardar  */}
           Guardar
         </Button>

@@ -3,7 +3,7 @@
 
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../fireBase/config";
-import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes } from "./journalSlice";
+import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes, setSaving, updateNote } from "./journalSlice";
 import { loadNotes } from "../../helpers/loadNotes";
 
 // esta accion se va a despachar cuando alguin haga click en el boton del + , este dispatch se usa en journal page, (donde esta el boton)
@@ -41,10 +41,32 @@ export const startLoadingNotes = () => {  //lo voy a llamar en useCheckAuth
 
     const notes =await loadNotes(uid);
     dispatch (setNotes( notes ) ); //se manda el pyload)
+  }
+}
+
+
+
+export const startSaveNote = () => {
+  return async( dispatch, getState) => {  //uso el url de la nota que quiero act
+     dispatch(setSaving()); 
+
+    const {uid } = getState().auth;  //para grabar en firebase, vamos a opupar el uid del usuario
+    const {active:note} = getState().journal; //en la nota activa viene el id, (remobre de la nota activa)
+
+    const noteToFireStore = {...note };//nota que voy a mandar a grabar 
+    delete noteToFireStore.id; //elimina el id de note
+    console.log( noteToFireStore);
+
+      //referencia al documento, al uqe quiero actualizar, se toma el id de la nota
+    const docRef = doc(FirebaseDB, `${uid}/journal/notes/${note.id}` ); //en note se toma de active.note . linea 53
+    await setDoc( docRef,noteToFireStore,{ merge:true});
+
+    dispatch (updateNote (note));   //viene del journalSlice,, esa es la nota actualizada 
+ 
 
   }
-
 }
+
 
 
 /*firebaseDB proviene de firestore y se encuentra en config.js
