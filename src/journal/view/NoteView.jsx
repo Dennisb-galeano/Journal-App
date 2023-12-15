@@ -9,8 +9,7 @@ import 'sweetalert2/dist/sweetalert2.css';
 import { ImageGalery } from "../components/ImageGalery";
 import { useForm } from "../../hooks/useForm";
 import { setActiveNote } from "../../store/journal/journalSlice";
-import { startSaveNote } from "../../store/journal/thunks";
-
+import { startSaveNote, startUpLoadingFiles } from "../../store/journal/thunks";
 
 //este componente tiene la infomacion del formulario, se usa la nota activa para mostrarla en el journal
 
@@ -50,11 +49,9 @@ export const NoteView = () => {
   const onFileInputChange = ({ target }) => {
     if(target.files === 0 ) return; //si el ususario no ingresa nada .. return
       
-    console.log('subiending archivos');
-      //dispatch ( startUpLoadingFiles (target.files ));//si carga con exito se va a mandar el dispatch
+      dispatch ( startUpLoadingFiles (target.files ));//si carga con exito se va a mandar el dispatch
 
-
-    // console.log(target.files);
+    // se crea un Helper para que me suba los archivos, es fileUpload.js, sube un arcivo a la vez;
   }
 
   return (
