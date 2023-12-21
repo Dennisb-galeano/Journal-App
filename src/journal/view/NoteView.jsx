@@ -125,8 +125,8 @@ export const NoteView = () => {
         />
 
       </Grid>
-      {/* galeria de imagenes */}
-      <ImageGalery />
+      {/* galeria de imagenes, aca esta la nota activa, esa nota que esta unsando es la active:notes del useSelector. se desestructuran las props(IMAGE) de imageGalery  */}
+      <ImageGalery images={note.imageUrls} />
 
 
 
