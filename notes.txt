@@ -105,3 +105,6 @@ REDUX:
 - firebase: 
 /* en la parte de reglas de firestore de la pag, ajustar para que me deje  pasar las peticiones  si ya estoy autenticado..  allow read, write: if request.auth !==null;
 con la configuracion de las reglas se puedes da o quetar permisos al usuario para que puedan o no grabar la informacion
+
+
+JS: promise.all = sirve para disparar un monton de funciones con promesas o fn, que cuando son resueltas entonces voy a tener la respuesta, de las promesas, la fn debe tener todas las promesas que van a ser disparadas

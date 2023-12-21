@@ -57,6 +57,11 @@ export const journalSlice = createSlice({
             state.messageSaved = `${action.payload.title}, actualizada correctamente`;
 
         },  
+        setPhotosToActiveNote: (state,action ) =>{  // se llama en los thunks en photosUrl. / establecer el arreglo de imagenes en la nota activa (es la que se va a grbar en firebase), creado en los thunks: const photosUrl... 
+            state.active.imageUrls = [ ...state.active. imageUrls, ...action.payload];
+            state.isSaving = false; //el isSaving en false me deja cargae
+        },
+
         delelteNoteById: (state, action) => { //borrar nota
     },
 
@@ -71,6 +76,7 @@ export const {
     savingNewNote,
     setActiveNote,
     setNotes,
+    setPhotosToActiveNote,
     setSaving,
     updateNote,
 } = journalSlice.actions;

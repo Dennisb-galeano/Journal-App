@@ -19,10 +19,10 @@ export const fileUpload = async (file) => { //el file se va a mandar como argume
       body: formData
     });
 
-    console.log(resp);
+    // console.log(resp);
     if(!resp.ok) throw new Error ('No se logro cargar la imagen')//si hay un error, si todo sale bien, entonces se va a serializar el body
       const cloudResp = await resp.json();
-      console.log({cloudResp});
+      // console.log({cloudResp});
 
       return cloudResp.secure_url //esta esperando el secure_url uqe me muestra postman en la imagen ya recibida
     
