@@ -7,9 +7,7 @@ import { startLogout } from "../../store/auth/thunks";
 
 export const NavBar = ({ drawerWidth = 240 }) => {
 
-
   const dispatch = useDispatch();
-
 
   const onLogout = () => {
     dispatch (startLogout() ); //el dispatch de una accion, del auth creada en los thunks, startLogout

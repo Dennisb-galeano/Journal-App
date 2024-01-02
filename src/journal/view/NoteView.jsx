@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { SaveOutlined, UploadFileRounded, UploadOutlined } from "@mui/icons-material";
+import { DeleteOutline, SaveOutlined, UploadFileRounded, UploadOutlined } from "@mui/icons-material";
 import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import 'sweetalert2/dist/sweetalert2.css';
 
-import { ImageGalery } from "../components/ImageGalery";
 import { useForm } from "../../hooks/useForm";
+import { ImageGallery } from "../components/ImageGallery";
 import { setActiveNote } from "../../store/journal/journalSlice";
-import { startSaveNote, startUpLoadingFiles } from "../../store/journal/thunks";
+import { startDeletingNote, startSaveNote, startUpLoadingFiles } from "../../store/journal/thunks";
 
 //este componente tiene la infomacion del formulario, se usa la nota activa para mostrarla en el journal
 
@@ -17,25 +17,25 @@ export const NoteView = () => {
 
   const dispatch = useDispatch();
   //tomar la nota activa del estado de mi Store. este me muestra el estado inicial de mi nota
-  const { active: note, messageSaved, isSaving } = useSelector(state => state.journal); //se cambia el nombre a a note, de las notas activas
+  const { active:note, messageSaved, isSaving } = useSelector(state => state.journal); //se cambia el nombre a a note, de las notas activas
 
   const { body, title, date, onInputChange, formState } = useForm(note); //la nota se va a mandar al useForm, estos campos los voy a usar dentro de los campos como el value.. de cada espaacio
 
   const dateString = useMemo(() => {   //esta fn
 
-    const newdate = new Date(date); //el date esta en la nota
-    return newdate.toUTCString();  //el metodo toUTC convierte una fecha en una cadena, utilizando la zona horaria UTC
+    const newDate = new Date( date ); //el date esta en la nota
+    return newDate.toUTCString();  //el metodo toUTC convierte una fecha en una cadena, utilizando la zona horaria UTC
   }, [date])  //dependencia, 
 
   const fileInputRef = useRef();  //va a tener la referencia de nuestro HTML al imput,, simulacion de un onCLik para el boton del file
 
 
   useEffect(() => {
-    dispatch(setActiveNote(formState)); //fn del journalSlice. el set va a activar la nota (el formState, tiene todas las propiedades de la nota , y actualizadas)
+    dispatch( setActiveNote(formState)); //fn del journalSlice. el set va a activar la nota (el formState, tiene todas las propiedades de la nota , y actualizadas)
   }, [formState]) //cuando el fomState cambie,se va a despachar una nueva accion
 
   useEffect(() => {
-    if (messageSaved.length > 0) {
+    if ( messageSaved.length > 0) {
       Swal.fire('Nota actualizada', messageSaved, 'success');
     }
   }, [messageSaved]) //cuando el mesageSaved cambie se va a disparr 
@@ -43,15 +43,17 @@ export const NoteView = () => {
 
 
   const onSaveNote = () => {
-    dispatch(startSaveNote());
+    dispatch( startSaveNote());
   }
 
   const onFileInputChange = ({ target }) => {
     if(target.files === 0 ) return; //si el ususario no ingresa nada .. return
-      
-      dispatch ( startUpLoadingFiles (target.files ));//si carga con exito se va a mandar el dispatch
-
+      dispatch( startUpLoadingFiles( target.files ));//si carga con exito se va a mandar el dispatch
     // se crea un Helper para que me suba los archivos, es fileUpload.js, sube un arcivo a la vez;
+  }
+
+  const onDelete = () => { //viene de thinks de journal
+    dispatch( startDeletingNote() ); //la nota activa la tiene el delete 
   }
 
   return (
@@ -62,8 +64,8 @@ export const NoteView = () => {
       justifyContent='space-between'
       sx={{ mb: 1 }}
       className="animate__animated animate_fadeIn animate_slower"
-
     >
+
       <Grid item>
         <Typography fontSize={39} fontWeight='light'> {dateString}</Typography>  {/*muestra la fecha en la que esta creada la nota */}
       </Grid>
@@ -85,10 +87,11 @@ export const NoteView = () => {
         >
 
           <UploadOutlined/>
+
         </IconButton>
         <Button   /*Boton GUARDAR! cuando toque este boton, se va a disparar una accion que va a empezar el proceso de grabacion */
-          disabled={isSaving} // se deshabilita el boton mientras esta guardando
-          onClick={onSaveNote}
+          disabled={ isSaving } // se deshabilita el boton mientras esta guardando
+          onClick={ onSaveNote }
           color="primary"
           sx={{ padding: 2 }}
         >
@@ -120,14 +123,25 @@ export const NoteView = () => {
           placeholder="que sucedio en el dia de hoy?"
           minRows={5} //alto del recuadro
           name="body"
-          value={body}
+          value={ body }
           onChange={onInputChange}
         />
+        </Grid>
 
-      </Grid>
-      {/* galeria de imagenes, aca esta la nota activa, esa nota que esta unsando es la active:notes del useSelector. se desestructuran las props(IMAGE) de imageGalery  */}
-      <ImageGalery images={note.imageUrls} />
+       { /*  Borrar una nota */ }
+        <Grid  container justifyContent='end'>
+          <Button
+            onClick={ onDelete}
+            sx={ { mt:2 }}
+            color="error"
+          >
+            <DeleteOutline />
+            Borrar Nota
+          </Button> 
+        </Grid>
 
+      {/* galeria de imagenes, aca esta la nota activa, esa nota que esta unsando es la active:notes del useSelector.esta nota ya tiene actualizados los urls. se desestructuran las props(IMAGE) de imageGalery  */}
+      <ImageGallery images={ note.imageUrls} />
 
 
     </Grid>

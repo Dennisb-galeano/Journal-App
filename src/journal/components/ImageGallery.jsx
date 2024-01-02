@@ -6,19 +6,19 @@
 // import ImageListItem from '@mui/material/ImageListItem';
 
 
-import { ImageList, ImageListItem } from "@mui/material";
+import { ImageListItem, ImageList } from '@mui/material';
 
 
-export const ImageGalery = ({ images}) => { //se desestructuran las images que estoy mandando a NoteView
+export const ImageGallery = ({ images }) => { //se estyan desestructurando las imagenes que vienen del note view ImageGallery
+
   return (
-    <ImageList sx={{ width:'100%', height: 500 }} cols={4} rowHeight={200}>
+    <ImageList sx={{ width: '100%', height: 500 }} cols={4} rowHeight={200}>
       { images.map((image) => (
-      
-      <ImageListItem key={image}>
+        <ImageListItem key={image}>
           <img
-            srcSet={`${image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
             src={`${image}?w=164&h=164&fit=crop&auto=format`}
-            alt='Imagen de la nota'
+            srcSet={`${image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+            alt="Imagen de la nota"
             loading="lazy"
           />
         </ImageListItem>

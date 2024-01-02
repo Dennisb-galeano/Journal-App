@@ -2,6 +2,7 @@
 //los thunks son acciones que yo puedo despachar, peero esas  acciones internamente tienen una tarea ASINCRONA
 
 import { loginWithEmailPassword, logoutFirebase, registerUserWithEmailPassword, signInWithGoogle } from "../../fireBase/providers";
+import { clearNotesLogout } from "../journal/journalSlice";
 import { checkingCredentials, login, logout } from "./authSlice";
 
 
@@ -72,7 +73,8 @@ export const startGoogleSignIn = () => {
   
       await logoutFirebase(); 
       //se va a llamar el logouyt del authSlice
+      dispatch ( clearNotesLogout()); //viene del journalSlice
       dispatch( logout());
-
-    }
+      
+    } 
   }

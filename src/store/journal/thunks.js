@@ -1,9 +1,9 @@
 // peticiones asincronas
 //empieza el proceso ! 
 
-import { collection, doc, setDoc } from "firebase/firestore/lite";
+import { collection, deleteDoc, doc, setDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../fireBase/config";
-import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNote, setSaving, updateNote } from "./journalSlice";
+import { addNewEmptyNote, delelteNoteById, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNote, setSaving, updateNote } from "./journalSlice";
 import { loadNotes } from "../../helpers/loadNotes";
 import { fileUpload } from "../../helpers/fileUpload";
 
@@ -17,10 +17,12 @@ export const startNewNote = () => {
     const { uid } = getState().auth;  //para grabar en firebase, vamos a opupar el uid del usuario
 
     const newNote = {
-      title: '',
-      body: '',
-      date: new Date().getTime(),
-    }
+      title: "",
+      body: "",
+      imageUrls: [], //Agregando images URLS[] NO SE revieta el, new note con el imageGallery.
+      date: new Date().getTime()
+  };
+  
 
     const newDoc = doc(collection(FirebaseDB, `${uid}/journal/notes`)) //referencia al documento, (donde lo qiuiero insertar), esta importacion es de firbase
     const setDocResp = await setDoc(newDoc, newNote);
@@ -83,6 +85,24 @@ export const startUpLoadingFiles = (files = []) => {
     const photosUrl= await Promise.all ( fileUploadPromises);  //(este es mi arreglo de imagenes)para disparar.  usa el promire.all. cuando el await reuelve, voy a tener un nuevo arreglo con la resolucion de las promesas 
     //console.log (photosUrl); //esto es lo que voy a terminar mandando a la nota
     dispatch(setPhotosToActiveNote( photosUrl) );
+  }
+
+}
+
+//se va a importar en noteViews
+ export const startDeletingNote = () =>{
+   return async( dispatch, getState) => {  //se ocupa la informaacion de la nota activa y del usuario activo
+
+    const { uid } = getState().auth;
+    const { active: note } = getState().journal;
+        // console.log({ uid, note});
+
+     //construir la referencia al documento para que le llegue a firebase,, el url. esta implementcion es propia de firebase
+    const docRef = doc( FirebaseDB, `${uid}/journal/notes/${ note.id}`); //en note se toma de active.note . linea 53
+
+    await deleteDoc( docRef); //para elimiar la nota
+
+    dispatch (delelteNoteById( note.id ));//limpiarla del store, note.id para quitar la nota activa y del arreglo de las notas
   }
 
 }
