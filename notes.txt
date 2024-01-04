@@ -1,3 +1,7 @@
+test:  Instalación y configuracion de Jest + React Testing Library , en proyectos de REACT + VITE
+  https://gist.github.com/Klerith/ca7e57fae3c9ab92ad08baadc6c26177
+
+
 MUI
   con el MUI "material ui" INSTALACIONES
   - es necesario configurar un componente que es el 
@@ -107,4 +111,4 @@ REDUX:
 con la configuracion de las reglas se puedes da o quetar permisos al usuario para que puedan o no grabar la informacion
 
 
-JS: promise.all = sirve para disparar un monton de funciones con promesas o fn, que cuando son resueltas entonces voy a tener la respuesta, de las promesas, la fn debe tener todas las promesas que van a ser disparadas
+JS: promise. = sirve para disparar un monton de funciones con promesas o fn, que cuando son resueltas entonces voy a tener la respuesta, de las promesas, la fn debe tener todas las promesas que van a ser disparadas

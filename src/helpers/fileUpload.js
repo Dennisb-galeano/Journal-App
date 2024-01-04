@@ -10,8 +10,8 @@ export const fileUpload = async (file) => { //el file se va a mandar como argume
   
   //construir el form data, igual que en postman
   const formData = new FormData(); //fn de JS. no hay que importar 
-  formData.append ('upload_preset', 'React-JournalApp'); //append: adjuntar, LOS PARES DE VALORES SE OBTIENEN desde POSTMAN 
-  formData.append ('file', file); //este file lo espera cloudinayy - LOS PARES DE VALORES SE OBTIENEN desde POSTMAN para la creacion de la peticion
+  formData.append('upload_preset', 'React-JournalApp'); //append: adjuntar, LOS PARES DE VALORES SE OBTIENEN desde POSTMAN 
+  formData.append('file', file); //este file lo espera cloudinayy - LOS PARES DE VALORES SE OBTIENEN desde POSTMAN para la creacion de la peticion
 
   try {
     const resp = await fetch( cloudUrl, {
@@ -24,11 +24,11 @@ export const fileUpload = async (file) => { //el file se va a mandar como argume
       const cloudResp = await resp.json();
       // console.log({cloudResp});
 
-      return cloudResp.secure_url //esta esperando el secure_url uqe me muestra postman en la imagen ya recibida
+      return cloudResp.secure_url; //esta esperando el secure_url uqe me muestra postman en la imagen ya recibida
     
-  } catch (error) {
-    console.log(error);
-    throw new Error( error.message);
+    } catch (error) {
+      console.log(error);
+      throw new Error( error.message );
   }
 
 }
