@@ -118,3 +118,11 @@ ___________________________________
 test
 - pruebas unitarias:  unit test se refieren a un mecanismo que comprueba el correcto funcionamiento de un fragmento del código fuente de un determinado software.  Estas pruebas se definen como una herramienta enfocada en la verificación del funcionamiento de las unidades más pequeñas de una aplicación o programa en concreto.
     mock:  que evitan la necesidad de dependencias externas en la ejmoecución de los tests. ej , google 
+
+JS: promise. = sirve para disparar un monton de funciones con promesas o fn, que cuando son resueltas entonces voy a tener la respuesta, de las promesas, la fn debe tener todas las promesas que van a ser disparadas
+
+variable de entorno .env (enviroment variable): es una variable que dependiendo del entrono tiene un valor. 
+  ya vienen configuradas en bit.
+  .env es un archivo donde ya estan configuradas las variables de entorno
+
+  en config.js se puede tener acceso a las variables de entorno console.log( import.meta.env);
