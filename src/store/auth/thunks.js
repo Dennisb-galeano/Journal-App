@@ -7,8 +7,8 @@ import { checkingCredentials, login, logout } from "./authSlice";
 
 
 export const checkingAuthentication = () => {  //esta es mi tarea asincrona
-
   return async(dispatch) => {
+    
     dispatch( checkingCredentials() );
   }
 }
