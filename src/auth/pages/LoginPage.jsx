@@ -102,6 +102,7 @@ export const LoginPage = () => {
                  disabled = { isAuthenticating}
                   variant="contained"
                   fullWidth
+                  aria-label='google-btn' //se coloca para el test
                   onClick={onGoogleSignIn}
                 >
 
