@@ -68,4 +68,22 @@ describe('pruebas en <LoginPage/>', () => {
     });
 
 
+    test('submit debe de llamar startLoginWithEmailPassword', () => { 
+     
+      const email = 'encitoPrecioso@gmail.com';
+      const password = '123456';
+
+      render(
+        <Provider store={store}>
+           <MemoryRouter>  {/*proporciona todo lo que necesitamos para poder renderizar SIN MEMORIA */}
+               <LoginPage/>
+            </MemoryRouter> 
+        </Provider>
+      );
+
+      const emailField = screen.getAllByRole( 'textbox', {name: 'Correo'});
+
+     });
+
+
   });

@@ -49,7 +49,7 @@ export const LoginPage = () => {
         <Grid container>
           <Grid item xs={12} sx={{ mt: 2 }}>
             <TextField //me permite escribir
-              label="correo"
+              label="Correo"
               type="email"
               placeholder="correo@encito.com"
               fullWidth //permite tomar TODO el ancho posible
